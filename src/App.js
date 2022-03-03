@@ -1,33 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginForm from "./components/auth/LoginForm";
-import RegisterForm from "./components/auth/RegisterForm";
-import About from "./components/page/About";
-import Auth from "./components/page/Auth";
-import Dashboard from "./components/page/Dashboard";
-import Landing from "./components/page/Landing";
-import ProtectedRoute from "./components/page/ProtectedRoute";
-import AuthContextProvider from "./context/AuthContext";
-import PostContextProvider from "./context/PostContext";
-const App = () => {
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { decrease, increase } from "./redux/counterSlice";
+function App() {
+	const counter = useSelector((state) => state.counter);
+
+	const dispatch = useDispatch();
+
+	const handleIncrease = () => {
+		const action = increase();
+		dispatch(action);
+	};
+
 	return (
-		<AuthContextProvider>
-			<PostContextProvider>
-				<Router>
-					<Routes>
-						<Route path="/" element={<Landing />} />
-						<Route path="account" element={<Auth />}>
-							<Route path="login" element={<LoginForm />} />
-							<Route path="register" element={<RegisterForm />} />
-						</Route>
-						<Route element={<ProtectedRoute />}>
-							<Route path="dashboard" element={<Dashboard />} />
-							<Route path="about" element={<About />} />
-						</Route>
-					</Routes>
-				</Router>
-			</PostContextProvider>
-		</AuthContextProvider>
+		<div>
+			<h1>Khoa</h1>
+			<h2>{counter}</h2>
+
+			<button onClick={handleIncrease}>increase</button>
+			<button onClick={() => dispatch(decrease())}>decrease</button>
+		</div>
 	);
-};
+}
 
 export default App;
