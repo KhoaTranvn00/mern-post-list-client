@@ -1,24 +1,42 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { decrease, increase } from "./redux/counterSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Account from "./components/auth/Account";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Landing from "./components/Landing";
+import Dashboard from "./components/page/Dashboard";
+import ProtectRoute from "./components/route/ProtectRoute";
+import { loadUser } from "./redux/userSlice";
 function App() {
-	const counter = useSelector((state) => state.counter);
-
 	const dispatch = useDispatch();
 
-	const handleIncrease = () => {
-		const action = increase();
-		dispatch(action);
-	};
+	useEffect(() => {
+		const loading = async () => {
+			try {
+				const actionResult = await dispatch(loadUser());
+				const currentUser = unwrapResult(actionResult);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		loading();
+	}, []);
 
 	return (
-		<div>
-			<h1>Khoa</h1>
-			<h2>{counter}</h2>
-
-			<button onClick={handleIncrease}>increase</button>
-			<button onClick={() => dispatch(decrease())}>decrease</button>
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Landing />} />
+				<Route path="account" element={<Account />}>
+					<Route path="login" element={<Login />} />
+					<Route path="register" element={<Register />} />
+				</Route>
+				<Route element={<ProtectRoute />}>
+					<Route path="dashboard" element={<Dashboard />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 

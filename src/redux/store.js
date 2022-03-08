@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./counterSlice";
+import postReducer from "./postSlice";
+import userReducer from "./userSlice";
+
+const rootReducer = {
+	user: userReducer,
+	posts: postReducer,
+};
 
 const store = configureStore({
-	reducer: {
-		counter: counterReducer,
-	},
+	reducer: rootReducer,
 });
 
 export default store;
