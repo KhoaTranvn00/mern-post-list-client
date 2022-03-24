@@ -10,6 +10,7 @@ import Dashboard from "./components/page/Dashboard";
 import ProtectRoute from "./components/route/ProtectRoute";
 import { loadUser } from "./redux/userSlice";
 import "./App.css";
+import About from "./components/page/About";
 function App() {
 	const dispatch = useDispatch();
 
@@ -35,6 +36,7 @@ function App() {
 				</Route>
 				<Route element={<ProtectRoute />}>
 					<Route path="dashboard" element={<Dashboard />} />
+					<Route path="about" element={<About />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
