@@ -1,7 +1,9 @@
-import React from "react";
+import Alert from "react-bootstrap/Alert";
 
-const Alert = ({ info }) => {
-	return <div>{info === null ? null : <h2>{info.message}</h2>}</div>;
+const AlertMessage = ({ info }) => {
+	return info === null ? null : (
+		<Alert variant={info.type}>{info.message}</Alert>
+	);
 };
 
-export default Alert;
+export default AlertMessage;

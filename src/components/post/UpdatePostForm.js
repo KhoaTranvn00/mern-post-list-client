@@ -8,6 +8,10 @@ import {
 	updatePost,
 } from "../../redux/postSlice";
 import Alert from "../layout/Alert";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import AlertMessage from "../layout/Alert";
 
 const UpdatePostForm = ({ onCloseAddForm }) => {
 	const dispatch = useDispatch();
@@ -31,15 +35,15 @@ const UpdatePostForm = ({ onCloseAddForm }) => {
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		setFormValue({
-			title: "",
-			des: "",
-		});
+		// setFormValue({
+		// 	title: "",
+		// 	des: "",
+		// });
 		try {
 			const response = await postApi.updatePost(formValue);
 			if (response.data.success) {
 				dispatch(updatePost(response.data.post));
-				setAlert({ message: response.data.message });
+				setAlert({ type: "success", message: response.data.message });
 			} else {
 				console.log(response);
 			}
@@ -48,27 +52,61 @@ const UpdatePostForm = ({ onCloseAddForm }) => {
 		}
 	};
 
+	const resetAddPostData = () => {
+		setFormValue({ title: "", des: "" });
+		// setShowAddPostModal(false);
+		dispatch(selectPost(null));
+	};
+	const closeDialog = () => {
+		resetAddPostData();
+		// onCloseAddForm();
+	};
+
 	return (
-		<form onSubmit={handleOnSubmit}>
-			update post form
-			<Alert info={alert} />
-			<input
-				type="text"
-				name="title"
-				placeholder="title"
-				value={title}
-				onChange={handleInputChange}
-			/>
-			<input
-				type="text"
-				name="des"
-				placeholder="des"
-				value={des}
-				onChange={handleInputChange}
-			/>
-			<button type="submit">sua post</button>
-			<button onClick={() => dispatch(selectPost(null))}>Dong</button>
-		</form>
+		<>
+			<Modal show={true} onHide={closeDialog}>
+				<Modal.Header closeButton>
+					<Modal.Title>What do you want to learn?</Modal.Title>
+				</Modal.Header>
+				<AlertMessage info={alert} />
+				<Form onSubmit={handleOnSubmit}>
+					<Modal.Body>
+						<Form.Group>
+							<Form.Control
+								type="text"
+								placeholder="Title"
+								name="title"
+								required
+								aria-describedby="title-help"
+								value={title}
+								onChange={handleInputChange}
+							/>
+							<Form.Text id="title-help" muted>
+								Required
+							</Form.Text>
+						</Form.Group>
+						<Form.Group>
+							<Form.Control
+								as="textarea"
+								rows={3}
+								placeholder="Description"
+								name="des"
+								value={des}
+								onChange={handleInputChange}
+							/>
+						</Form.Group>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button variant="secondary" onClick={closeDialog}>
+							Cancel
+						</Button>
+						<Button variant="primary" type="submit">
+							Update!
+						</Button>
+					</Modal.Footer>
+				</Form>
+			</Modal>
+		</>
 	);
 };
 

@@ -2,13 +2,14 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Account from "./components/auth/Account";
+import Account from "./components/page/Account";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Landing from "./components/Landing";
 import Dashboard from "./components/page/Dashboard";
 import ProtectRoute from "./components/route/ProtectRoute";
 import { loadUser } from "./redux/userSlice";
+import "./App.css";
 function App() {
 	const dispatch = useDispatch();
 

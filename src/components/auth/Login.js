@@ -6,6 +6,8 @@ import userApi from "../../api/userApi";
 import { LOCAL_STORAGE_TOKEN_NAME } from "../../constant";
 import { loadUser } from "../../redux/userSlice";
 import Alert from "../Alert";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const Login = () => {
 	const [formValue, setFormValue] = useState({
@@ -44,32 +46,48 @@ const Login = () => {
 				setAlert(response.data.message);
 			}
 		} catch (error) {
-			setAlert({ message: error.response.data.message });
+			setAlert({ type: "danger", message: error.response.data.message });
 		}
 	};
 
 	return (
-		<div>
-			<Alert info={alert} />
-			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					value={username}
-					onChange={handleInputChange}
-					name="username"
-					placeholder="Username"
-				></input>
-				<input
-					type="password"
-					value={password}
-					onChange={handleInputChange}
-					name="password"
-					placeholder="password"
-				></input>
-				<button type="submit">Dang nhap</button>
-				<Link to="../register">dang ki</Link>
-			</form>
-		</div>
+		<>
+			<Form className="my-4" onSubmit={handleSubmit}>
+				<Alert info={alert} />
+
+				<Form.Group className="mb-3">
+					<Form.Control
+						type="text"
+						placeholder="Username"
+						name="username"
+						required
+						value={username}
+						onChange={handleInputChange}
+					/>
+				</Form.Group>
+				<Form.Group className="mb-3">
+					<Form.Control
+						type="password"
+						placeholder="Password"
+						name="password"
+						required
+						value={password}
+						onChange={handleInputChange}
+					/>
+				</Form.Group>
+				<Button variant="success" type="submit">
+					Login
+				</Button>
+			</Form>
+			<p>
+				Don't have an account?
+				<Link to="../register">
+					<Button variant="info" size="sm" className="ml-3">
+						Register
+					</Button>
+				</Link>
+			</p>
+		</>
 	);
 };
 

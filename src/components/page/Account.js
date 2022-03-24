@@ -10,9 +10,14 @@ const Account = () => {
 	if (isAuthSuccess) return <Navigate to="/dashboard" />;
 	else
 		return (
-			<div>
-				<h1>Account</h1>
-				<Outlet />
+			<div className="landing">
+				<div className="dark-overlay">
+					<div className="landing-inner">
+						<h1>POST LIST</h1>
+						{/* <h4>Keep track of what you are learning</h4> */}
+						<Outlet />
+					</div>
+				</div>
 			</div>
 		);
 };
