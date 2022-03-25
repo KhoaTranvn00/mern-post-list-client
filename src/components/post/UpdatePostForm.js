@@ -19,7 +19,7 @@ const UpdatePostForm = ({ onCloseAddForm }) => {
 	const { post } = postsState;
 
 	const [formValue, setFormValue] = useState(post);
-	const { title, des } = formValue;
+	const { title, des, status } = formValue;
 	const [alert, setAlert] = useState(null);
 
 	useEffect(() => {
@@ -94,6 +94,18 @@ const UpdatePostForm = ({ onCloseAddForm }) => {
 								value={des}
 								onChange={handleInputChange}
 							/>
+						</Form.Group>
+						<Form.Group className="mt-3">
+							<Form.Control
+								as="select"
+								value={status}
+								name="status"
+								onChange={handleInputChange}
+							>
+								<option value="TO DO">TO DO</option>
+								<option value="DOING">DOING</option>
+								<option value="DONE">DONE</option>
+							</Form.Control>
 						</Form.Group>
 					</Modal.Body>
 					<Modal.Footer>

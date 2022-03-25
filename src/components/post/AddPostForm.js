@@ -12,9 +12,10 @@ const AddPostForm = ({ onCloseAddForm }) => {
 	const [formValue, setFormValue] = useState({
 		title: "",
 		des: "",
+		status: "TO DO",
 	});
 	const [showAddPostModal, setShowAddPostModal] = useState(true);
-	const { title, des } = formValue;
+	const { title, des, status } = formValue;
 
 	const [alert, setAlert] = useState(null);
 
@@ -27,15 +28,16 @@ const AddPostForm = ({ onCloseAddForm }) => {
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		setFormValue({
-			title: "",
-			des: "",
-		});
+
 		try {
 			const response = await postApi.addPost(formValue);
 			if (response.data.success) {
 				dispatch(addPost(response.data.newPost));
 				setAlert({ type: "success", message: response.data.message });
+				setFormValue({
+					title: "",
+					des: "",
+				});
 			} else {
 				console.log(response);
 				setAlert({ type: "danger", message: response.data.message });
@@ -76,7 +78,7 @@ const AddPostForm = ({ onCloseAddForm }) => {
 								Required
 							</Form.Text>
 						</Form.Group>
-						<Form.Group>
+						<Form.Group className="mt-3">
 							<Form.Control
 								as="textarea"
 								rows={3}
@@ -85,6 +87,18 @@ const AddPostForm = ({ onCloseAddForm }) => {
 								value={des}
 								onChange={handleInputChange}
 							/>
+						</Form.Group>
+						<Form.Group className="mt-3">
+							<Form.Control
+								as="select"
+								value={status}
+								name="status"
+								onChange={handleInputChange}
+							>
+								<option value="TO DO">TO DO</option>
+								<option value="DOING">DOING</option>
+								<option value="DONE">DONE</option>
+							</Form.Control>
 						</Form.Group>
 					</Modal.Body>
 					<Modal.Footer>

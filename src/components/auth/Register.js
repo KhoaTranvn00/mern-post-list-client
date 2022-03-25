@@ -25,6 +25,7 @@ const Register = () => {
 
 	const handleInputChange = (e) => {
 		setFormValue((state) => ({ ...state, [e.target.name]: e.target.value }));
+		setAlert(null);
 	};
 
 	const handleSubmit = async (e) => {

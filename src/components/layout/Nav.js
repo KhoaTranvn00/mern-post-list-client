@@ -25,67 +25,65 @@ const NavbarMenu = () => {
 
 	return (
 		<>
-			<Navbar expand="lg" bg="primary" variant="dark" className="shadow">
-				<Container>
-					<Navbar.Brand className="font-weight-bolder text-white">
-						<img
-							src={learnItLogo}
-							alt="learnItLogo"
-							width="32"
-							height="32"
-							className="mr-2"
-						/>
-						PostLIst
-					</Navbar.Brand>
+			<Navbar expand="lg" bg="primary" variant="dark" className="shadow ctn">
+				<Navbar.Brand className="font-weight-bolder text-white">
+					<img
+						src={learnItLogo}
+						alt="learnItLogo"
+						width="32"
+						height="32"
+						className="mr-2"
+					/>
+					PostLIst
+				</Navbar.Brand>
 
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-					<Navbar.Collapse
-						id="basic-navbar-nav"
-						style={{
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "baseline",
-						}}
-					>
-						<Nav className="mr-auto">
-							<Nav.Link
-								className="font-weight-bolder text-white"
-								to="/dashboard"
-								as={Link}
-							>
-								Dashboard
-							</Nav.Link>
-							<Nav.Link
-								className="font-weight-bolder text-white"
-								to="/about"
-								as={Link}
-							>
-								About
-							</Nav.Link>
-						</Nav>
+				<Navbar.Collapse
+					id="basic-navbar-nav"
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "baseline",
+					}}
+				>
+					<Nav className="mr-auto">
+						<Nav.Link
+							className="font-weight-bolder text-white"
+							to="/dashboard"
+							as={Link}
+						>
+							Dashboard
+						</Nav.Link>
+						<Nav.Link
+							className="font-weight-bolder text-white"
+							to="/about"
+							as={Link}
+						>
+							About
+						</Nav.Link>
+					</Nav>
 
-						<Nav>
-							<Nav.Link className="font-weight-bolder text-white" disabled>
-								Welcome {username}
-							</Nav.Link>
-							<Button
-								variant="secondary"
-								className="font-weight-bolder text-white"
-								onClick={handleLogout}
-							>
-								<img
-									src={logoutIcon}
-									alt="logoutIcon"
-									width="32"
-									height="32"
-									className="mr-2"
-								/>
-								Logout
-							</Button>
-						</Nav>
-					</Navbar.Collapse>
-				</Container>
+					<Nav>
+						<Nav.Link className="font-weight-bolder text-white" disabled>
+							Welcome {username}
+						</Nav.Link>
+						<Button
+							variant="secondary"
+							className="font-weight-bolder text-white"
+							onClick={handleLogout}
+						>
+							<img
+								src={logoutIcon}
+								alt="logoutIcon"
+								width="32"
+								height="32"
+								className="mr-2"
+							/>
+							Logout
+						</Button>
+					</Nav>
+				</Navbar.Collapse>
 			</Navbar>
 		</>
 	);

@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import ActionButtons from "./ActionButtons";
 
-const SinglePost = ({ post: { title, des, _id } }) => {
+const SinglePost = ({ post: { title, des, _id, status } }) => {
 	const dispatch = useDispatch();
 	const handleDelete = async (id) => {
 		try {
@@ -24,19 +24,35 @@ const SinglePost = ({ post: { title, des, _id } }) => {
 
 	return (
 		<>
-			{/* <div style={{ border: "1px solid black", margin: "10px" }}>
-				<h3>{title}</h3>
-				<p>{des}</p>
-				<button onClick={() => dispatch(selectPost(_id))}>sua</button>
-				<button onClick={() => handleDelete(_id)}>xoa</button>
-			</div> */}
-			<Card className="shadow" border="success">
+			<Card
+				className="shadow"
+				border={
+					status === "DONE"
+						? "success"
+						: status === "DOING"
+						? "warning"
+						: "danger"
+				}
+			>
 				<Card.Body>
 					<Card.Title>
 						<Row>
 							<Col>
 								<p className="post-title">{title}</p>
+								<Badge
+									pill
+									bg={
+										status === "DONE"
+											? "success"
+											: status === "DOING"
+											? "warning"
+											: "danger"
+									}
+								>
+									{status}
+								</Badge>
 							</Col>
+
 							<Col className="text-right" style={{ textAlign: "right" }}>
 								<ActionButtons _id={_id} />
 							</Col>
